@@ -1,6 +1,6 @@
 {
   "name": "push2cloud-cli",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "cli for push2cloud",
   "scripts": {
     "lint": "eslint .",
