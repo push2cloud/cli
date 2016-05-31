@@ -12,7 +12,19 @@ const epochjs = new Epochjs();
 
 const DEPLOYMENT_MANIFEST = 'deploymentManifest.json';
 
-const req = (p) => require(p.replace(/^\./, process.cwd()));
+const req = (p) => {
+  const pathToReq = p.replace(/^\./, process.cwd());
+  var required = null;
+  try {
+    required = require(pathToReq);
+  } catch (err) {
+    if (pathToReq.indexOf(process.cwd()) === 0) {
+      throw err;
+    }
+    required = require(join(process.cwd(), 'node_modules', pathToReq));
+  }
+  return required;
+};
 
 const timeElapsed = () => {
   var elapsed = epochjs.secElapsed();
@@ -68,7 +80,6 @@ const compileCmd = (yargs) => {
     .option('l', {})
     .default('deploymentManifest', join(process.cwd(), DEPLOYMENT_MANIFEST), './' + DEPLOYMENT_MANIFEST)
   );
-
 
   const preparePlugins = argv.plugins.prepare.map(req);
   const compilePlugins = argv.plugins.compile.map(req);
