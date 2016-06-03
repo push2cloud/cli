@@ -60,6 +60,12 @@ const deploymentManifestOption = {
   description: 'path to the deploymentManifest'
 };
 
+const clearOption = {
+  alias: 'clearWorkspace',
+  description: 'clears the __workspace directory before building',
+  default: false
+};
+
 const commandDefault = (yargs) => {
   return yargs
     .config('settings')
@@ -73,6 +79,7 @@ const compileCmd = (yargs) => {
   const argv = commandDefault(yargs
     .usage('Usage: $0 compile [options]')
     .option('e', deploymentManifestOption)
+    .option('c', clearOption)
     .option('plugins', pluginsOption)
     .array('plugins.prepare')
     .array('plugins.compile')
@@ -103,7 +110,7 @@ const compileCmd = (yargs) => {
         compileDone();
         console.log('build');
         epochjs.start();
-        buildWorkspace(buildWorkspacePlugins
+        buildWorkspace({ clearWorkspace: argv.clearWorkspace }, buildWorkspacePlugins
                      , null, null, done('build'));
       })
       .catch(compileDone);
