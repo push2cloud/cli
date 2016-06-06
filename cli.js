@@ -95,9 +95,12 @@ const compileCmd = (yargs) => {
 
   console.log('prepare');
   epochjs.start();
-  deploymentManifestPath = isAbsolute(argv.deploymentManifest) ? argv.deploymentManifest : join(process.cwd(), argv.deploymentManifest)
+  const deploymentManifestPath = isAbsolute(argv.deploymentManifest) ? argv.deploymentManifest : join(process.cwd(), argv.deploymentManifest)
+  const clearOptions = { clearWorkspace: argv.clearWorkspace }
+
   prepare(
-    preparePlugins
+    clearOptions
+  , preparePlugins
   , deploymentManifestPath
   , null
   , done('prepare', () => {
@@ -112,7 +115,7 @@ const compileCmd = (yargs) => {
         compileDone();
         console.log('build');
         epochjs.start();
-        buildWorkspace({ clearWorkspace: argv.clearWorkspace }, buildWorkspacePlugins
+        buildWorkspace(clearOptions, buildWorkspacePlugins
                      , null, null, done('build'));
       })
       .catch(compileDone);
