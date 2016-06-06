@@ -9,6 +9,7 @@ const writeJsonFile = require('write-json-file');
 const logSymbols = require('log-symbols');
 const Epochjs = require('epochjs');
 const epochjs = new Epochjs();
+const isAbsolute = require('path').isAbsolute;
 
 const DEPLOYMENT_MANIFEST = 'deploymentManifest.json';
 
@@ -94,9 +95,10 @@ const compileCmd = (yargs) => {
 
   console.log('prepare');
   epochjs.start();
+  deploymentManifestPath = isAbsolute(argv.deploymentManifest) ? argv.deploymentManifest : join(process.cwd(), argv.deploymentManifest)
   prepare(
-     preparePlugins
-  , join(process.cwd(), argv.deploymentManifest)
+    preparePlugins
+  , deploymentManifestPath
   , null
   , done('prepare', () => {
     console.log('compile');
