@@ -1,3 +1,6 @@
+## [v2.0.0](https://github.com/push2cloud/cli/compare/v1.1.1...v2.0.0)
+- bump push2cloud-compiler, breaking change in interface to some compiler plugins
+
 ## [v1.1.1](https://github.com/push2cloud/cli/compare/v1.0.5...v1.1.1)
 - bump push2cloud-compiler
 

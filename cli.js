@@ -95,8 +95,8 @@ const compileCmd = (yargs) => {
 
   console.log('prepare');
   epochjs.start();
-  const deploymentManifestPath = isAbsolute(argv.deploymentManifest) ? argv.deploymentManifest : join(process.cwd(), argv.deploymentManifest)
-  const clearOptions = { clearWorkspace: argv.clearWorkspace }
+  const deploymentManifestPath = isAbsolute(argv.deploymentManifest) ? argv.deploymentManifest : join(process.cwd(), argv.deploymentManifest);
+  const clearOptions = { clearWorkspace: argv.clearWorkspace };
 
   prepare(
     clearOptions
